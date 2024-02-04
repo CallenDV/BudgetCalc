@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BudgetCalc</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input, button {
+            margin-bottom: 10px;
+            padding: 8px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Budget Tracker</h1>
+        <label for="income">Income:</label>
+        <input type="number" id="income" placeholder="Enter your income">
+
+        <label for="expenses">Expenses:</label>
+        <input type="number" id="expenses" placeholder="Enter your expenses">
+
+        <button onclick="calculateBudget()">Calculate</button>
+
+        <h2>Remaining Budget: $<span id="remainingBudget">0</span></h2>
+    </div>
+
+    <script>
+        const storedIncome = localStorage.getItem('income');
+        const storedExpenses = localStorage.getItem('expenses');
+
+        if (storedIncome) {
+            document.getElementById('income').value = storedIncome;
+        }
+
+        if (storedExpenses) {
+            document.getElementById('expenses').value = storedExpenses;
+        }
+
+        function calculateBudget() {
+            const incomeInput = document.getElementById('income');
+            const expensesInput = document.getElementById('expenses');
+
+            const income = parseFloat(incomeInput.value) || 0;
+            const expenses = parseFloat(expensesInput.value) || 0;
+
+            if (isNaN(income) || isNaN(expenses) || income < 0 || expenses < 0) {
+                alert('Please enter valid income and expenses.');
+                return;
+            }
+
+            const remainingBudget = income - expenses;
+            document.getElementById('remainingBudget').textContent = remainingBudget.toFixed(2);
+
+            localStorage.setItem('income', income);
+            localStorage.setItem('expenses', expenses);
+        }
+    </script>
+</body>
+</html>

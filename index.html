@@ -56,8 +56,8 @@
     </div>
 
     <script>
-        const storedIncome = localStorage.getItem('income');
-        const storedExpenses = localStorage.getItem('expenses');
+        const storedIncome = parseFloat(localStorage.getItem('income')) || 0;
+        const storedExpenses = parseFloat(localStorage.getItem('expenses')) || 0;
 
         if (storedIncome) {
             document.getElementById('income').value = storedIncome;
